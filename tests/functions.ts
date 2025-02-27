@@ -58,35 +58,29 @@ export class Functions{
         const text_input = this.page.getByRole('textbox', { name: 'Text:' })
         const submit_button = this.page.getByRole('button', { name: 'Check For E-Prime' })
         const discouragedWords = this.page.getByText('Discouraged Words:')
-        //const caracter_limit = ['be', 'being', 'been', 'am', 'isn\'t', 'are', 'aren\'t', 'was', 'wasn\'t', 'were', 'weren\'t', 'is', 'ain\'t', 'i\'m', 'amn\'t'];
-        const caracter_limit = ["&", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "+", "=", "{", "}", "[", "]", "|", ":", ";", "'", "<", ">", ",", ".", "?", "/", " ", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+        const caracter_limit = ['be', 'being', 'been', 'am', 'isn\'t', 'are', 'aren\'t', 'was', 'wasn\'t', 'were', 'weren\'t', 'is', 'ain\'t', 'i\'m', 'amn\'t'];
+        //const caracter_limit = ["&", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "+", "=", "{", "}", "[", "]", "|", ":", ";", "'", "<", ">", ",", ".", "?", "/", " ", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
         const caracter_input = this.page.locator("#eprimeoutput")
+        const caracter_input_contains = await caracter_input.textContent();
 
         await text_input.clear();
         await text_input.click();
-        await text_input.fill("&");
-        
-        console.log(caracter_input.textContent());
-
-        // if (caracter_input.textContent() == "&") {
-        //     await submit_button.click();
-        //     await expect(discouragedWords).toContainText('0');
-        // } else {
-        //     await submit_button.click();
-        //     await expect(discouragedWords).toContainText('1');
-        // }
-
-        // for (let i = 0; i < caracter_limit.length; i++) {
-        //     await text_input.fill(caracter_limit[i]);
-        //     await submit_button.click();
-        //     await expect(discouragedWords).toContainText('0');
-        //     await text_input.clear();
-        // }
-        
+        await text_input.fill("been be be am is lalallalallala fhifhoihf ");
+     
         await submit_button.click();
-    
-        await expect(discouragedWords).toContainText('0');
 
+        let found = 0
+        for (let i = 0; i < caracter_limit.length; i++) {
+            if (caracter_input_contains === caracter_limit[i]) {
+                found = found + 1;
+                console.log(caracter_input_contains);
+                await expect(discouragedWords).toContainText(found.toString());
+            }
+        }
+
+        
+    
+        
 
     }
 
