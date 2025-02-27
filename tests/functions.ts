@@ -23,33 +23,26 @@ export class Functions{
     async passsing_case_functionality() {
         const text_input = this.page.getByRole('textbox', { name: 'Text:' })
         const submit_button = this.page.getByRole('button', { name: 'Check For E-Prime' })
+        const discouraged_words = this.page.getByText('Discouraged Words:')
 
         await text_input.click();
         await text_input.fill('LLama lala');
         await submit_button.click();
 
-
+        await expect(discouraged_words).toContainText('0');
     }
 
     async none_passing_case_functionality() {
         const text_input = this.page.getByRole('textbox', { name: 'Text:' })
         const submit_button = this.page.getByRole('button', { name: 'Check For E-Prime' })
-        const discouragedWords = this.page.getByText('Discouraged Words:')
+        const discouraged_words = this.page.getByText('Discouraged Words:')
 
         await text_input.click();
         await text_input.fill("discouragedWords['be'] = 'be\'discouragedWords['being'] = 'being\'discouragedWords['been'] = 'been\'discouragedWords['am'] = 'am\'discouragedWords[\"isn't\"] = \"isn't\"discouragedWords[\"are\"] = \"are\"discouragedWords[\"aren't\"] = 'aren't\"discouragedWords[\"was\"] = \"was\"discouragedWords[\"wasn't\"] = \"wasn't\"discouragedWords[\"were\"] = \"were\"discouragedWords[\"weren't\"] = \"weren't\"discouragedWords[\"is\"] = \"is\"discouragedWords[\"ain't\"] = \"ain't\"discouragedWords[\"i'm\"] = \"i'm\"discouragedWords[\"amn't\"] = \"amn't\"");
         await submit_button.click();
 
-        await expect(discouragedWords).toContainText('21');
+        await expect(discouraged_words).toContainText('21');
       
-    
-        await text_input.clear();
-        await text_input.click();
-        await text_input.fill("he she it they we you me him her them us");
-        await submit_button.click();
-    
-        await expect(discouragedWords).toContainText('0');
-
 
     }
 
@@ -57,7 +50,7 @@ export class Functions{
     async none_passing_case2_functionality() {
         const text_input = this.page.getByRole('textbox', { name: 'Text:' })
         const submit_button = this.page.getByRole('button', { name: 'Check For E-Prime' })
-        const discouragedWords = this.page.getByText('Discouraged Words:')
+        const discouraged_words = this.page.getByText('Discouraged Words:')
         const caracter_limit = ['be', 'being', 'been', 'am', 'isn\'t', 'are', 'aren\'t', 'was', 'wasn\'t', 'were', 'weren\'t', 'is', 'ain\'t', 'i\'m', 'amn\'t'];
         //const caracter_limit = ["&", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "+", "=", "{", "}", "[", "]", "|", ":", ";", "'", "<", ">", ",", ".", "?", "/", " ", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
         const caracter_input = this.page.locator("#eprimeoutput")
@@ -74,12 +67,10 @@ export class Functions{
             if (caracter_input_contains === caracter_limit[i]) {
                 found = found + 1;
                 console.log(caracter_input_contains);
-                await expect(discouragedWords).toContainText(found.toString());
+                await expect(discouraged_words).toContainText(found.toString());
+                console.log(found);
             }
         }
-
-        
-    
         
 
     }

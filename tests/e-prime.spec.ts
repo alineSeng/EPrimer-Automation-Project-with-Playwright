@@ -20,11 +20,20 @@ test('Passing case functionality', async ({ page }) => {
  
 });
 
-test('None passing case functionality', async ({ page }) => {
+test('None passing case1 functionality', async ({ page }) => {
   const functions = new Functions(page);
   
   await functions.navigate_to(functions.url);
   await functions.none_passing_case_functionality();
+
+
+ 
+});
+
+test('None passing case2 functionality ', async ({ page }) => {
+  const functions = new Functions(page);
+  
+  await functions.navigate_to(functions.url);
 
   await functions.none_passing_case2_functionality();
 
